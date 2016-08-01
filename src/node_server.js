@@ -28,3 +28,7 @@ server.listen(6000, function ()
 { //'listening' listener
     console.log('nodeServer listening port:6000');
 });
+server.on('error', function(ex) {
+  console.log("handled error");
+  console.log(ex);
+});
