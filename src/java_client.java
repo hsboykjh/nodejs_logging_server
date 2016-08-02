@@ -10,24 +10,40 @@ import java.net.Socket;
 public class client {
     
 	public static void main(String[] args) throws IOException {
-		 
+		
+		//create socket connection ( ip address, port number ) 
 		Socket tcpClient = new Socket("localhost", 6000); 
+		
+		//open file ( local )
 		File myFile = new File("FILE_PATH");
-        byte[] mybytearray = new byte[(int) myFile.length()];
+		
+		//set buffer size based on the size of localfile
+        	byte[] mybytearray = new byte[(int) myFile.length()];
          
-        FileInputStream fis = new FileInputStream(myFile);
-        BufferedInputStream bis = new BufferedInputStream(fis);
-        bis.read(mybytearray, 0, mybytearray.length);
-        
+         	//open input stream of file
+        	FileInputStream fis = new FileInputStream(myFile);
+        	
+        	//buffer inputstream
+        	BufferedInputStream bis = new BufferedInputStream(fis);
+        	
+        	//read file's content
+        	bis.read(mybytearray, 0, mybytearray.length);
+        	
+        	//open output stream
 		DataOutputStream os = new DataOutputStream(tcpClient.getOutputStream());
 		
+		//write on ouput stream
 		os.write(mybytearray, 0, mybytearray.length);
         
-        os.flush();
-        os.close();
-        fis.close();
-        bis.close();
+        	//flush
+        	os.flush();
+        	
+        	//close streams
+        	os.close();
+        	fis.close();
+        	bis.close();
          
-        tcpClient.close();
-    }
+         	//close socket connection
+        	tcpClient.close();
+	}
 }
